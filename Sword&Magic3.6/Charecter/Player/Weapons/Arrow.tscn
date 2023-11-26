@@ -1,0 +1,102 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Charecter/Player/Weapons/Projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Widget/Weapon/Bow/Arrow.png" type="Texture" id=2]
+[ext_resource path="res://Widget/Player/Attack/bow/arrow/small_sting.png" type="Texture" id=3]
+[ext_resource path="res://Widget/Player/light.png" type="Texture" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+resource_local_to_scene = true
+radius = 8.88581
+height = 7.51306
+
+[sub_resource type="Animation" id=2]
+resource_name = "Bomb"
+
+[sub_resource type="Animation" id=4]
+resource_name = "arrowww"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "arrow" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 1, 2, 1, 2, 3 ]
+}
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 88, 45 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 88, 0, 88, 45 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 176, 0, 88, 45 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 264, 0, 88, 45 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "arrow",
+"speed": 5.0
+} ]
+
+[node name="Arrow" groups=["arrow"] instance=ExtResource( 1 )]
+rotation = 0.523599
+collision_layer = 8
+collision_mask = 2
+damage_weapons = 3
+
+[node name="CollisionShape2D" parent="." index="0" groups=["arrow"]]
+rotation = 0.723971
+shape = SubResource( 1 )
+
+[node name="Sprite" parent="." index="1" groups=["arrow"]]
+visible = false
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" parent="." index="2" groups=["arrow"]]
+reset_on_save = false
+anims/Bomb = SubResource( 2 )
+anims/arrowww = SubResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="3" groups=["arrow"]]
+modulate = Color( 1, 2.32941, 10.9804, 1 )
+position = Vector2( -1.66603, -0.553525 )
+rotation = -0.859605
+scale = Vector2( 0.5, 0.8 )
+frames = SubResource( 9 )
+animation = "arrow"
+frame = 3
+speed_scale = 2.0
+
+[node name="Light2D" type="Light2D" parent="." index="4" groups=["arrow"]]
+texture = ExtResource( 4 )
+texture_scale = 0.07
+color = Color( 0.972549, 0.972549, 0.972549, 1 )
+energy = 1.28
+shadow_enabled = true

@@ -1,0 +1,149 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Charecter/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Rooms.gd" type="Script" id=2]
+[ext_resource path="res://World.gd" type="Script" id=3]
+[ext_resource path="res://new_theme.tres" type="Theme" id=4]
+[ext_resource path="res://UI.gd" type="Script" id=5]
+[ext_resource path="res://CoinFac.gd" type="Script" id=7]
+[ext_resource path="res://Sound eff/WorldSound.ogg" type="AudioStream" id=8]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://Gamemenu/font/Adventurer.ttf"
+
+[sub_resource type="DynamicFont" id=5]
+font_data = SubResource( 4 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.909804, 0.0745098, 0.0745098, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+shadow_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 1, 1, 1, 0 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+shadow_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFontData" id=6]
+font_path = "res://Gamemenu/font/Adventurer.ttf"
+
+[sub_resource type="DynamicFont" id=7]
+font_data = SubResource( 6 )
+
+[sub_resource type="DynamicFontData" id=8]
+font_path = "res://Gamemenu/font/Adventurer.ttf"
+
+[sub_resource type="DynamicFont" id=9]
+font_data = SubResource( 8 )
+
+[node name="World" type="Node"]
+script = ExtResource( 3 )
+
+[node name="CoinFac" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( 5 )
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.936
+anchor_right = 0.5
+anchor_bottom = 0.936
+margin_left = -11.0
+margin_top = -46.0
+margin_right = 25.0
+margin_bottom = -8.0
+grow_horizontal = 2
+custom_styles/panel = SubResource( 3 )
+
+[node name="Inventory" type="HBoxContainer" parent="UI/PanelContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 32.0
+margin_bottom = 34.0
+
+[node name="HPbar" type="ProgressBar" parent="UI"]
+margin_left = 14.0
+margin_top = 11.0
+margin_right = 187.0
+margin_bottom = 33.0
+theme = ExtResource( 4 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/fg = SubResource( 11 )
+custom_styles/bg = SubResource( 10 )
+
+[node name="Label" type="Label" parent="UI/HPbar"]
+margin_left = 67.0
+margin_top = 3.0
+margin_right = 107.0
+margin_bottom = 17.0
+
+[node name="Tween" type="Tween" parent="UI/HPbar"]
+
+[node name="Coins" type="Label" parent="UI"]
+margin_left = 67.0
+margin_top = 39.0
+margin_right = 107.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 7 )
+
+[node name="Label" type="Label" parent="UI"]
+margin_left = 16.0
+margin_top = 39.0
+margin_right = 56.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 9 )
+text = "COIN"
+
+[node name="Label2" type="Label" parent="UI"]
+margin_left = 937.0
+margin_top = 22.0
+margin_right = 977.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 9 )
+text = "FLOOR"
+
+[node name="Floor" type="Label" parent="UI"]
+margin_left = 958.0
+margin_top = 44.0
+margin_right = 998.0
+margin_bottom = 60.0
+rect_pivot_offset = Vector2( 318, -256 )
+custom_fonts/font = SubResource( 7 )
+
+[node name="Rooms" type="Navigation2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0, 0, 0, 1 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 229, 138 )
+accerelation = 500
+max_speed = 300
+
+[node name="WorldSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+volume_db = -25.015
+
+[connection signal="hp_changed" from="Player" to="UI" method="_on_Player_hp_changed"]
+[connection signal="weapon_droped" from="Player" to="UI" method="_on_Player_weapon_droped"]
+[connection signal="weapon_picked_up" from="Player" to="UI" method="_on_Player_weapon_picked_up"]
+[connection signal="weapon_switched" from="Player" to="UI" method="_on_Player_weapon_switched"]

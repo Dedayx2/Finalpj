@@ -1,0 +1,111 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Charecter/Player/Weapons/Sword.gd" type="Script" id=1]
+[ext_resource path="res://Widget/Weapon/Axe/Lance.png" type="Texture" id=2]
+[ext_resource path="res://Widget/Map/SmallShadow.png" type="Texture" id=3]
+[ext_resource path="res://Widget/floaty_64.png" type="Texture" id=4]
+
+[sub_resource type="CanvasItemMaterial" id=7]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 7
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.516129, 0.612903, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 0.921571, 0.935547, 0.610298, 1, 1, 0.963303, 0.277344, 1, 1, 0.00390625, 0.00390625, 1 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+emission_shape = 1
+emission_sphere_radius = 10.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, -100, 0 )
+initial_velocity = 50.0
+angular_velocity = 100.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+scale = 0.5
+scale_random = 0.5
+color_ramp = SubResource( 6 )
+hue_variation = 1.0
+hue_variation_random = 0.05
+anim_speed = 1.0
+
+[sub_resource type="CapsuleShape2D" id=1]
+height = 8.0
+
+[sub_resource type="Animation" id=3]
+resource_name = "wave"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 7 ), Vector2( 0, 0 ), Vector2( 0, 7 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("shadow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.9, 0.9 ), Vector2( 1, 1 ), Vector2( 0.9, 0.9 ), Vector2( 1, 1 ) ]
+}
+
+[node name="Axe" type="Node2D"]
+script = ExtResource( 1 )
+on_floor = true
+weapon_damage = 4
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Particles2D" type="Particles2D" parent="Sprite"]
+material = SubResource( 7 )
+position = Vector2( 1.13687e-13, 7 )
+scale = Vector2( 0.2, 0.2 )
+amount = 70
+lifetime = 1.5
+explosiveness = 0.07
+process_material = SubResource( 9 )
+texture = ExtResource( 4 )
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+anims/wave = SubResource( 3 )
+
+[node name="shadow" type="Sprite" parent="."]
+position = Vector2( 0, 22 )
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 3 )
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

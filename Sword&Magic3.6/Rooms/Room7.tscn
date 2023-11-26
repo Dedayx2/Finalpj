@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Rooms/Room2.tscn" type="PackedScene" id=1]
+
+[node name="Room7" instance=ExtResource( 1 )]
+
+[node name="FurnitureTileMap" parent="." index="3"]
+tile_data = PoolIntArray( 65542, 30, 0, 65553, 29, 0, 262169, 31, 0, 327687, 26, 0, 327688, 25, 0, 327704, 31, 0, 393241, 31, 0, 458767, 26, 0, 458768, 25, 0, 589854, 31, 0, 655389, 31, 0, 655390, 31, 0, 1245189, 24, 0, 1245190, 24, 0, 1245200, 26, 0, 1245201, 25, 0, 1310726, 24, 0, 1376262, 24, 0 )
+
+[node name="Torch2" parent="." index="10"]
+position = Vector2( 30, 22 )

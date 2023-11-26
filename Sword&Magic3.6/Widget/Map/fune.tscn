@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="ParticlesMaterial" id=1]
+lifetime_randomness = 1.0
+emission_shape = 2
+emission_box_extents = Vector3( 200, 1, 1 )
+direction = Vector3( -1, 1, 0 )
+spread = 0.0
+gravity = Vector3( -1, 0, 0 )
+initial_velocity = 169.31
+color = Color( 0.921569, 0.607843, 0.141176, 1 )
+
+[node name="Particles2D" type="Particles2D"]
+position = Vector2( 322, 7 )
+amount = 30
+process_material = SubResource( 1 )

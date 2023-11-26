@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Axe2 (mp3cut.net).mp3-b1c3248b1a8e852a1005d9df35b577c9.mp3str"
+
+[deps]
+
+source_file="res://Sound eff/Axe2 (mp3cut.net).mp3"
+dest_files=[ "res://.import/Axe2 (mp3cut.net).mp3-b1c3248b1a8e852a1005d9df35b577c9.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
